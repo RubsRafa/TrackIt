@@ -5,29 +5,35 @@ import styled from "styled-components"
 import logo from '../img/logo.png'
 import URLBase from "./url";
 
-export default function Entrar() {
+export default function Cadastrar() {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [image, setImage] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate(); 
 
     function entrar(e) {
         e.preventDefault();
-        console.log('entrar')
 
-        const userLogin = {
+        const createUser = {
             email,
+            name,
+            image,
             password
-        }
+        }; 
 
-        axios.post(`${URLBase}auth/login`, userLogin)
-        .then((res) => {
+        axios.post(`${URLBase}auth/sign-up`, createUser)
+        .get((res) => {
             console.log(res.data)
-            setPassword('');
-            setEmail('');
-            navigate('/habitos')
+            navigate('/')
+            setEmail('')
+            setName('')
+            setImage('')
+            setPassword('')
         })
-        .catch((err) => console.log(err.response.data))
+        .catch ((err) => console.log(err.response.data))
+        console.log('entrar')
     }
 
     return (
@@ -39,11 +45,13 @@ export default function Entrar() {
                 <Inputs>
                     <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
                     <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
-                    <button type="submit">Entrar</button>
+                    <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
+                    <input onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
+                    <button type="submit">Cadastrar</button>
                 </Inputs>
             </form>
-            <Link to={'/cadastro'}>
-                <Cadastrar><h1>Não tem uma conta? Cadastre-se!</h1></Cadastrar>
+            <Link to={'/'}>
+                <Login><h1>Já tem uma conta? Faça login!</h1></Login>
             </Link>
         </>
     )
@@ -91,7 +99,7 @@ button {
     border: none;
 }
 `;
-const Cadastrar = styled.div`
+const Login = styled.div`
 text-align: center;
 margin-top: 25px;
 h1{
