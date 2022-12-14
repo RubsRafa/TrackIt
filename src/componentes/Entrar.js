@@ -25,7 +25,7 @@ export default function Entrar() {
             console.log(res.data)
             setPassword('');
             setEmail('');
-            navigate('/habitos')
+            navigate('/hoje')
         })
         .catch((err) => console.log(err.response.data))
     }

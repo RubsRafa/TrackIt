@@ -24,7 +24,7 @@ export default function Cadastrar() {
         }; 
 
         axios.post(`${URLBase}auth/sign-up`, createUser)
-        .get((res) => {
+        .then((res) => {
             console.log(res.data)
             navigate('/')
             setEmail('')
