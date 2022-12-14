@@ -33,7 +33,7 @@ export default function Habitos() {
                             <InfoHabito>
                                 <input type='text' placeholder="nome do hábito" required></input>
                                 {daysWeek.map((d, i) =>
-                                    <Botoes cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
+                                    <Botoes key={i} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
                                 )}
 
                             </InfoHabito>
