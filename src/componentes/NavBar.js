@@ -5,7 +5,7 @@ export default function NavBar () {
         <>
         <NavBarLogo>
             <h1>TrackIt</h1>
-            <img src='https://bravi.tv/wp-content/uploads/2019/04/Irmao-do-jorel3-214x214.png' alt='perfil' />
+            <img src='https://yt3.googleusercontent.com/mKOaUC5vpuc7JRkO-rue0C5ptMGdGlFqHrxRWtZ-YlpnDTGFdH4GOYPBkMD0rg-hiWaOlVIkuA=s900-c-k-c0x00ffffff-no-rj' alt='perfil' />
         </NavBarLogo>
         </>
     )

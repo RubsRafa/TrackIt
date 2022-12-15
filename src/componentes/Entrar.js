@@ -5,15 +5,15 @@ import styled from "styled-components"
 import logo from '../img/logo.png'
 import URLBase from "./url";
 
-export default function Entrar() {
+export default function Entrar({ setToken }) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     function entrar(e) {
         e.preventDefault();
-        console.log('entrar')
 
         const userLogin = {
             email,
@@ -21,13 +21,14 @@ export default function Entrar() {
         }
 
         axios.post(`${URLBase}auth/login`, userLogin)
-        .then((res) => {
-            console.log(res.data)
-            setPassword('');
-            setEmail('');
-            navigate('/hoje')
-        })
-        .catch((err) => console.log(err.response.data))
+            .then((res) => {
+                console.log(res.data)
+                setToken(res.data.token)
+                setPassword('');
+                setEmail('');
+                navigate('/hoje')
+            })
+            .catch((err) => console.log(err.response.data))
     }
 
     return (
@@ -39,7 +40,10 @@ export default function Entrar() {
                 <Inputs>
                     <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
                     <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
-                    <button type="submit">Entrar</button>
+                    <button onClick={() => setLoading(true)} type="submit">Entrar</button>
+                
+
+
                 </Inputs>
             </form>
             <Link to={'/cadastro'}>

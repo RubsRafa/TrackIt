@@ -1,12 +1,10 @@
-import feito from '../img/check.png'
+// import feito from '../img/check.png'
 import styled from "styled-components"
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-import { useState } from 'react';
+// import { useState } from 'react';
 
 export default function Historico() {
-
-    const [concluido, setConcluido] = useState();
 
     return (
         <Container>

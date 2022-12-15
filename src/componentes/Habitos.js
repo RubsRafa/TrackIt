@@ -1,14 +1,19 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import styled from "styled-components"
 import Trash from '../img/remove.png'
 import Footer from "./Footer";
 import NavBar from "./NavBar";
+import URLBase from "./url";
 
-export default function Habitos() {
+export default function Habitos({ token }) {
 
     const daysWeek = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
     const [daysSelected, setDaysSelected] = useState([]);
     const [newHabit, setNewHabit] = useState(false);
+    const [nomeHabito, setNomeHabito] = useState('');
+    const [habitosLista, setHabitosLista] = useState([]);
+    console.log(habitosLista)
 
     function selectDaysWeek(i) {
         if (!daysSelected.includes(i)) {
@@ -17,6 +22,33 @@ export default function Habitos() {
             let newDaysSelectec = daysSelected.filter((d) => d !== i)
             setDaysSelected(newDaysSelectec)
         }
+    }
+
+    function criarHabito() {
+
+        const habitoNovo = {
+            name: nomeHabito,
+            days: daysSelected
+        }
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        axios.post(`${URLBase}habits`, habitoNovo, config)
+            .then((res) => {
+                setHabitosLista([...habitosLista, res.data])
+                setNewHabit(false)
+                setDaysSelected('');
+                setNomeHabito('')
+            })
+            .catch((err) => console.log(err.response.data))
+    }
+
+    function removeHabit(id) {
+        console.log('remover habito')
     }
 
     return (
@@ -31,9 +63,9 @@ export default function Habitos() {
                     {newHabit && (
                         <AddHabito>
                             <InfoHabito>
-                                <input type='text' placeholder="nome do hábito" required></input>
+                                <input onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
                                 {daysWeek.map((d, i) =>
-                                    <Botoes key={i} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
+                                    <Botoes key={i} cor={daysSelected.includes(i + 1)} onClick={() => selectDaysWeek(i + 1)}>{d}</Botoes>
                                 )}
 
                             </InfoHabito>
@@ -41,27 +73,37 @@ export default function Habitos() {
                                 <h1 onClick={() => {
                                     setNewHabit(false)
                                     setDaysSelected('');
+                                    setNomeHabito('')
                                 }}>Cancelar</h1>
-                                <button type='submit'>Salvar</button>
+                                <button type='submit' onClick={criarHabito}>Salvar</button>
                             </Acoes>
                         </AddHabito>
                     )}
-                    <Habito>
-                        <InfoHabito>
-                            <TextoHabito>
-                                <h1>Ler 1 capítulo de livro</h1>
-                                <img src={Trash} alt='trash' />
-                            </TextoHabito>
-                            <Botoes>D</Botoes>
-                            <Botoes>D</Botoes>
-                            <Botoes>D</Botoes>
-                            <Botoes>D</Botoes>
-                            <Botoes>D</Botoes>
-                            <Botoes>D</Botoes>
-                            <Botoes>D</Botoes>
-                        </InfoHabito>
-                    </Habito>
-                    <h1>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h1>
+                    {habitosLista.length !== 0 && (
+
+                        habitosLista.map((h) => (
+                            <Habito key={h.id}>
+                                <InfoHabito>
+                                    <TextoHabito>
+                                        <h1>{h.name}</h1>
+                                        <img onClick={() => removeHabit(h.id)} src={Trash} alt='trash' />
+                                    </TextoHabito>
+                                    <Botoes cor={h.days.includes(1)}>D</Botoes>
+                                    <Botoes cor={h.days.includes(2)}>S</Botoes>
+                                    <Botoes cor={h.days.includes(3)}>T</Botoes>
+                                    <Botoes cor={h.days.includes(4)}>Q</Botoes>
+                                    <Botoes cor={h.days.includes(5)}>Q</Botoes>
+                                    <Botoes cor={h.days.includes(6)}>S</Botoes>
+                                    <Botoes cor={h.days.includes(7)}>S</Botoes>
+                                </InfoHabito>
+                            </Habito>
+                        ))
+                    )
+                    }
+                    {habitosLista.length === 0 && (
+                        <h1>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</h1>
+                    )}
+
                 </ListaHabitos>
             </ContainerHabitos>
             <Footer />
@@ -71,6 +113,7 @@ export default function Habitos() {
 const ContainerHabitos = styled.div`
 margin-top: 68px;
 height: 100%;
+margin-bottom: 70px;
 `;
 const TextoPrincipal = styled.div`
 display: flex;
@@ -192,4 +235,5 @@ const Container = styled.body`
 width: 100vw;
 height: 100vh;
 background-color: #E5E5E5;
+margin-bottom: 70px;
 `;
