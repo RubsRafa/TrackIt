@@ -13,7 +13,20 @@ export default function Habitos({ token }) {
     const [newHabit, setNewHabit] = useState(false);
     const [nomeHabito, setNomeHabito] = useState('');
     const [habitosLista, setHabitosLista] = useState([]);
-    console.log(habitosLista)
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        axios.get(`${URLBase}habits`, config)
+            .then((res) => {
+                setHabitosLista(res.data)
+            })
+            .catch((err) => console.log(err.response.data))
+    }, [token])
 
     function selectDaysWeek(i) {
         if (!daysSelected.includes(i)) {
@@ -39,7 +52,7 @@ export default function Habitos({ token }) {
 
         axios.post(`${URLBase}habits`, habitoNovo, config)
             .then((res) => {
-                setHabitosLista([...habitosLista, res.data])
+                // setHabitosLista([...habitosLista, res.data])
                 setNewHabit(false)
                 setDaysSelected('');
                 setNomeHabito('')
@@ -48,7 +61,16 @@ export default function Habitos({ token }) {
     }
 
     function removeHabit(id) {
-        console.log('remover habito')
+        console.log(id)
+        console.log(habitosLista)
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+        axios.delete(`${URLBase}habits/${id}`, config)
+        .then(() => setHabitosLista(habitosLista.filter((h) => h.id !== id)))
     }
 
     return (
@@ -65,7 +87,7 @@ export default function Habitos({ token }) {
                             <InfoHabito>
                                 <input onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
                                 {daysWeek.map((d, i) =>
-                                    <Botoes key={i} cor={daysSelected.includes(i + 1)} onClick={() => selectDaysWeek(i + 1)}>{d}</Botoes>
+                                    <Botoes key={i} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
                                 )}
 
                             </InfoHabito>
