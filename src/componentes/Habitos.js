@@ -26,7 +26,7 @@ export default function Habitos({ token }) {
                 setHabitosLista(res.data)
             })
             .catch((err) => console.log(err.response.data))
-    }, [token])
+    }, [nomeHabito])
 
     function selectDaysWeek(i) {
         if (!daysSelected.includes(i)) {
@@ -61,8 +61,6 @@ export default function Habitos({ token }) {
     }
 
     function removeHabit(id) {
-        console.log(id)
-        console.log(habitosLista)
 
         const config = {
             headers: {
@@ -110,13 +108,13 @@ export default function Habitos({ token }) {
                                         <h1>{h.name}</h1>
                                         <img onClick={() => removeHabit(h.id)} src={Trash} alt='trash' />
                                     </TextoHabito>
-                                    <Botoes cor={h.days.includes(1)}>D</Botoes>
-                                    <Botoes cor={h.days.includes(2)}>S</Botoes>
-                                    <Botoes cor={h.days.includes(3)}>T</Botoes>
+                                    <Botoes cor={h.days.includes(0)}>D</Botoes>
+                                    <Botoes cor={h.days.includes(1)}>S</Botoes>
+                                    <Botoes cor={h.days.includes(2)}>T</Botoes>
+                                    <Botoes cor={h.days.includes(3)}>Q</Botoes>
                                     <Botoes cor={h.days.includes(4)}>Q</Botoes>
-                                    <Botoes cor={h.days.includes(5)}>Q</Botoes>
+                                    <Botoes cor={h.days.includes(5)}>S</Botoes>
                                     <Botoes cor={h.days.includes(6)}>S</Botoes>
-                                    <Botoes cor={h.days.includes(7)}>S</Botoes>
                                 </InfoHabito>
                             </Habito>
                         ))

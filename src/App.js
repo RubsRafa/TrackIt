@@ -19,7 +19,7 @@ export default function App() {
         <Route path='/' element={<Entrar setToken={setToken} />} />
         <Route path='/cadastro' element={<Cadastrar />} />
         <Route path='/habitos' element={<Habitos token={token} />} />
-        <Route path='/hoje' element={<Hoje />} />
+        <Route path='/hoje' element={<Hoje token={token} />} />
         <Route path='/historico' element={<Historico />} />
       </Routes>
 
