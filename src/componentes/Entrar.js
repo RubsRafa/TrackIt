@@ -6,7 +6,6 @@ import logo from '../img/logo.png'
 import URLBase from "./url";
 import { ThreeDots } from 'react-loader-spinner'
 import Context from "./Context";
-// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function Entrar() {
     const { setImage, setToken} = useContext(Context)
@@ -18,7 +17,6 @@ export default function Entrar() {
     const navigate = useNavigate();
 
     function entrar(e) {
-        console.log('ENTRAR')
         e.preventDefault();
 
         const userLogin = {

@@ -9,7 +9,7 @@ import Context from './Context';
 
 
 export default function Hoje() {
-    const {token} = useContext(Context)
+    const {token, setFeitosHoje} = useContext(Context)
 
     const [habitosHoje, setHabitosHoje] = useState();
     const [renderizar, setRenderizar] = useState(false);
@@ -71,6 +71,7 @@ export default function Hoje() {
         if (habitosHoje !== undefined && feitos !== []) {
             let resultado = (feitos.length * 100) / habitosHoje.length;
             setPorcentagem(Math.round(resultado))
+            setFeitosHoje(Math.round(resultado))
         }
     }
 

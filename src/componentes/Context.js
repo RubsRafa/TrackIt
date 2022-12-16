@@ -2,13 +2,9 @@ import { createContext } from "react";
 
 const Context = createContext({
     image: null,
-    token: null
+    token: null,
+    feitosHoje: null
 });
 
 
 export default Context; 
-
-// function Provider ({children}) {
-//     const [image, setImage] = useState('');
-//     const [token, setToken] = useState('');
-// }
