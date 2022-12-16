@@ -8,8 +8,8 @@ import URLBase from './url';
 
 export default function Hoje({ token }) {
 
-    const [concluido, setConcluido] = useState(false);
     const [habitosHoje, setHabitosHoje] = useState();
+    const [renderizar, setRenderizar] = useState(false);
     console.log(habitosHoje)
 
     useEffect(() => {
@@ -21,10 +21,11 @@ export default function Hoje({ token }) {
         axios.get(`${URLBase}habits/today`, config)
             .then((res) => setHabitosHoje(res.data))
             .catch((err) => console.log(err.response.data))
-    }, [])
+    }, [renderizar])
 
     function marcarFeito (id) {
         console.log('MARCAR', id)
+        setRenderizar(!renderizar)
 
         const body = {};
         const config = {
@@ -33,12 +34,13 @@ export default function Hoje({ token }) {
             }
         }
         axios.post(`${URLBase}habits/${id}/check`, body, config)
-        .then(() => setConcluido(true))
+        .then((res) => console.log(res.data))
         .catch((err) => console.log(err.response.data))
     }
     
     function desmarcarHabito (id) {
         console.log('DESMARCAR', id)
+        setRenderizar(!renderizar)
 
         const body = {};
         const config = {
@@ -47,7 +49,7 @@ export default function Hoje({ token }) {
             }
         }
         axios.post(`${URLBase}habits/${id}/uncheck`, body, config)
-        .then(() => setConcluido(false))
+        .then((res) => console.log(res.data))
         .catch((err) => console.log(err.response.data))
     }
 
@@ -75,7 +77,7 @@ export default function Hoje({ token }) {
                                             <h2>Sequência atual: {h.currentSequence} dias</h2>
                                             <h2>Seu recorde: {h.highestSequence} dias</h2>
                                         </TextoHabito>
-                                        <Check corFundo={concluido || h.done} onClick={concluido ? (() => desmarcarHabito(h.id)) : (() => marcarFeito(h.id))}>
+                                        <Check corFundo={h.done} onClick={h.done ? (() => desmarcarHabito(h.id)) : (() => marcarFeito(h.id))}>
                                             <img src={feito} alt='check' />
                                         </Check>
                                     </InfoHabito>

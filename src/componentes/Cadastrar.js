@@ -11,7 +11,7 @@ export default function Cadastrar() {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     function entrar(e) {
         e.preventDefault();
@@ -21,38 +21,40 @@ export default function Cadastrar() {
             name,
             image,
             password
-        }; 
+        };
 
         axios.post(`${URLBase}auth/sign-up`, createUser)
-        .then((res) => {
-            console.log(res.data)
-            navigate('/')
-            setEmail('')
-            setName('')
-            setImage('')
-            setPassword('')
-        })
-        .catch ((err) => console.log(err.response.data))
+            .then((res) => {
+                console.log(res.data)
+                navigate('/')
+                setEmail('')
+                setName('')
+                setImage('')
+                setPassword('')
+            })
+            .catch((err) => console.log(err.response.data))
         console.log('entrar')
     }
 
     return (
         <>
-            <Logo>
-                <img src={logo} alt="logo" />
-            </Logo>
-            <form onSubmit={entrar}>
-                <Inputs>
-                    <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
-                    <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
-                    <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
-                    <input onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
-                    <button type="submit">Cadastrar</button>
-                </Inputs>
-            </form>
-            <Link to={'/'}>
-                <Login><h1>Já tem uma conta? Faça login!</h1></Login>
-            </Link>
+            <TelaCadastrar>
+                <Logo>
+                    <img src={logo} alt="logo" />
+                </Logo>
+                <form onSubmit={entrar}>
+                    <Inputs>
+                        <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
+                        <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
+                        <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
+                        <input onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
+                        <button type="submit">Cadastrar</button>
+                    </Inputs>
+                </form>
+                <Link to={'/'}>
+                    <Login><h1>Já tem uma conta? Faça login!</h1></Login>
+                </Link>
+            </TelaCadastrar>
         </>
     )
 }
@@ -108,4 +110,9 @@ h1{
     font-size: 14px;
     text-decoration: underline;
 }
+`;
+const TelaCadastrar = styled.div`
+background-color: white;
+width: 100vw;
+height: 100vh;
 `;

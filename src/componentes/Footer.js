@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components"
-// import circulo from '../img/circulo.png'
 
 export default function Footer() {
     return (
