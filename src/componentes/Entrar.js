@@ -1,13 +1,15 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import logo from '../img/logo.png'
 import URLBase from "./url";
 import { ThreeDots } from 'react-loader-spinner'
+import Context from "./Context";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-export default function Entrar({ setToken }) {
+export default function Entrar() {
+    const { setImage, setToken} = useContext(Context)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -26,14 +28,13 @@ export default function Entrar({ setToken }) {
 
         axios.post(`${URLBase}auth/login`, userLogin)
             .then((res) => {
-                // console.log(res.data)
                 setToken(res.data.token)
                 setPassword('');
                 setEmail('');
                 navigate('/hoje')
+                setImage(res.data.image)
             })
             .catch((err) => {
-                console.log(err.response.data)
                 setLoading(false)
                 setHabilitar(false)
                 alert(err.response.data.message)

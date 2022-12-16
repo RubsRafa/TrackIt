@@ -2,11 +2,14 @@ import feito from '../img/check.png'
 import styled from "styled-components"
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import URLBase from './url';
+import Context from './Context';
 
-export default function Hoje({ token }) {
+
+export default function Hoje() {
+    const {token} = useContext(Context)
 
     const [habitosHoje, setHabitosHoje] = useState();
     const [renderizar, setRenderizar] = useState(false);

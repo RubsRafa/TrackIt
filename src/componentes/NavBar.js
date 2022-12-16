@@ -1,11 +1,14 @@
+import Context from "./Context";
+import { useContext } from "react";
 import styled from "styled-components"
 
 export default function NavBar () {
+    const {image} = useContext(Context)
     return (
         <>
         <NavBarLogo>
             <h1>TrackIt</h1>
-            <img src='https://yt3.googleusercontent.com/mKOaUC5vpuc7JRkO-rue0C5ptMGdGlFqHrxRWtZ-YlpnDTGFdH4GOYPBkMD0rg-hiWaOlVIkuA=s900-c-k-c0x00ffffff-no-rj' alt='perfil' />
+            <img src={image} alt='perfil' />
         </NavBarLogo>
         </>
     )

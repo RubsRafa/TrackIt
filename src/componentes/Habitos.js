@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components"
 import Trash from '../img/remove.png'
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import URLBase from "./url";
+import Context from "./Context";
 
-export default function Habitos({ token }) {
+export default function Habitos() {
+    const {token} = useContext(Context)
 
     const daysWeek = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
     const [daysSelected, setDaysSelected] = useState([]);
