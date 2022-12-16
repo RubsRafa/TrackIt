@@ -4,15 +4,19 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import logo from '../img/logo.png'
 import URLBase from "./url";
+import { ThreeDots } from 'react-loader-spinner'
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 export default function Entrar({ setToken }) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const navigate = useNavigate();
+    const [habilitar, setHabilitar] = useState(false)
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     function entrar(e) {
+        console.log('ENTRAR')
         e.preventDefault();
 
         const userLogin = {
@@ -22,13 +26,18 @@ export default function Entrar({ setToken }) {
 
         axios.post(`${URLBase}auth/login`, userLogin)
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 setToken(res.data.token)
                 setPassword('');
                 setEmail('');
                 navigate('/hoje')
             })
-            .catch((err) => console.log(err.response.data))
+            .catch((err) => {
+                console.log(err.response.data)
+                setLoading(false)
+                setHabilitar(false)
+                alert(`${err.response.data}`)
+            })
     }
 
     return (
@@ -38,11 +47,23 @@ export default function Entrar({ setToken }) {
             </Logo>
             <form onSubmit={entrar}>
                 <Inputs>
-                    <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
-                    <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
-                    <button onClick={() => setLoading(true)} type="submit">Entrar</button>
-                
-
+                    <input disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
+                    <input disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
+                    {loading ? <button type="submit"><div>
+                        <ThreeDots
+                            height="40"
+                            width="70"
+                            radius="9"
+                            color="#ffffff"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true}
+                        /></div>
+                    </button> : <button onClick={() => {
+                        setLoading(true)
+                        setHabilitar(true)
+                    }} type="submit"><div>Entrar</div></button>}
 
                 </Inputs>
             </form>
@@ -93,6 +114,9 @@ button {
     border-radius: 4px;
     padding: 8px;
     border: none;
+    div{
+        justify-content: center;
+    }
 }
 `;
 const Cadastrar = styled.div`

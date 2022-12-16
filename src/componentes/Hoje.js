@@ -10,22 +10,29 @@ export default function Hoje({ token }) {
 
     const [habitosHoje, setHabitosHoje] = useState();
     const [renderizar, setRenderizar] = useState(false);
-    console.log(habitosHoje)
+    const [porcentagem, setPorcentagem] = useState();
+    const [feitos, setFeitos] = useState([]);
+    // console.log(habitosHoje)
+    // console.log(feitos)
+    // console.log(porcentagem)
 
     useEffect(() => {
+        // console.log('ATUALIZAR TELA')
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }
         axios.get(`${URLBase}habits/today`, config)
-            .then((res) => setHabitosHoje(res.data))
+            .then((res) => {
+                setHabitosHoje(res.data)
+                setFeitos(res.data.filter((h) => h.done !== false))
+                calcularPorcentagem()
+            })
             .catch((err) => console.log(err.response.data))
     }, [renderizar])
 
-    function marcarFeito (id) {
-        console.log('MARCAR', id)
-        setRenderizar(!renderizar)
+    function marcarFeito(id) {
 
         const body = {};
         const config = {
@@ -34,12 +41,13 @@ export default function Hoje({ token }) {
             }
         }
         axios.post(`${URLBase}habits/${id}/check`, body, config)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err.response.data))
+            .then(() => {
+                setRenderizar(!renderizar)
+            })
+            .catch((err) => console.log(err.response.data))
     }
-    
-    function desmarcarHabito (id) {
-        console.log('DESMARCAR', id)
+
+    function desmarcarHabito(id) {
         setRenderizar(!renderizar)
 
         const body = {};
@@ -49,8 +57,18 @@ export default function Hoje({ token }) {
             }
         }
         axios.post(`${URLBase}habits/${id}/uncheck`, body, config)
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err.response.data))
+            .then(() => {
+                setRenderizar(!renderizar)
+            })
+            .catch((err) => console.log(err.response.data))
+    }
+
+    function calcularPorcentagem() {
+        // console.log('ATUALIZAR PORCENTAGEM')
+        if (habitosHoje !== undefined && feitos !== []) {
+            let resultado = (feitos.length * 100) / habitosHoje.length;
+            setPorcentagem(Math.round(resultado))
+        }
     }
 
     return (
@@ -60,32 +78,33 @@ export default function Hoje({ token }) {
                 <TextoPrincipal>
                     <div>.</div>
                     <h1>Segunda, 17/05</h1>
-                    <h2>Nenhum hábito concluído ainda</h2>
+                    {feitos.length === 0 && <h2>Nenhum hábito concluído ainda</h2>}
+                    {feitos.length !== 0 && <h2>{Math.round(porcentagem)}% dos hábitos concluídos</h2>}
                 </TextoPrincipal>
                 <ListaHabitos>
                     {habitosHoje === undefined &&
                         <TextoPrincipal><h1>Carregando...</h1></TextoPrincipal>
                     }
                     {habitosHoje !== undefined && (
-                        
-                            habitosHoje.map((h) =>
-                                <Habito key={h.id}>
-                                    <InfoHabito>
-                                        <TextoHabito>
-                                            <div>.</div>
-                                            <h1>{h.name}</h1>
-                                            <h2>Sequência atual: {h.currentSequence} dias</h2>
-                                            <h2>Seu recorde: {h.highestSequence} dias</h2>
-                                        </TextoHabito>
-                                        <Check corFundo={h.done} onClick={h.done ? (() => desmarcarHabito(h.id)) : (() => marcarFeito(h.id))}>
-                                            <img src={feito} alt='check' />
-                                        </Check>
-                                    </InfoHabito>
-                                </Habito>
-                            )
+
+                        habitosHoje.map((h) =>
+                            <Habito key={h.id}>
+                                <InfoHabito>
+                                    <TextoHabito cor={h.currentSequence === h.highestSequence}>
+                                        <div>.</div>
+                                        <h1>{h.name}</h1>
+                                        <h2>Sequência atual: <span>{h.currentSequence} dias</span></h2>
+                                        <h2>Seu recorde: <span>{h.highestSequence} dias</span></h2>
+                                    </TextoHabito>
+                                    <Check corFundo={h.done} onClick={h.done ? (() => desmarcarHabito(h.id)) : (() => marcarFeito(h.id))}>
+                                        <img src={feito} alt='check' />
+                                    </Check>
+                                </InfoHabito>
+                            </Habito>
+                        )
                     )
-                        }
-                    
+                    }
+
 
                 </ListaHabitos>
             </ContainerHabitos>
@@ -154,6 +173,9 @@ h2 {
     font-family: Lexend Deca, sans-serif;
     font-size: 13px;
     margin: 5px 0 0 0;
+}
+span {
+    color: ${props => props.cor ? '#8FC549' : '#666666'};
 }
 `;
 const Container = styled.body`
