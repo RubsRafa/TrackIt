@@ -22,15 +22,15 @@ export default function Footer() {
                             <CircularProgressbar
                                 value={feitosHoje}
                                 text={'Hoje'}
-                                style={buildStyles({
-                                    rotation: 0.25,
-                                    strokeLinecap: 'butt',
-                                    textSize: '20px',
-                                    pathTransitionDuration: 0.5,
-                                    pathColor: '#ffffff',
-                                    textColor: '#ffffff',
-                                    trailColor: '#52B6FF',
-                                    backgroundColor: '#000000',
+                                background
+                                backgroundPadding={6}
+                                styles={buildStyles({
+                                    backgroundColor: "#52B6FF",
+                                    textColor: "#fff",
+                                    pathColor: "#fff",
+                                    trailColor: "transparent",
+                                    textSize: 22,
+                                    strokeLinecap: 'round'
                                 })}
                             />
                         </CirculoHoje>
@@ -68,7 +68,6 @@ const CirculoHoje = styled.div`
     box-sizing: border-box;
     position:absolute;
     bottom: 10px;
-    padding: 4px;
 `;
 const Centralizar = styled.div`
 width: 91px;

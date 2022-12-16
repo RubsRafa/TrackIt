@@ -6,15 +6,17 @@ import Footer from "./Footer";
 import NavBar from "./NavBar";
 import URLBase from "./url";
 import Context from "./Context";
+import { ThreeDots } from 'react-loader-spinner'
 
 export default function Habitos() {
-    const {token} = useContext(Context)
+    const { token } = useContext(Context)
 
     const daysWeek = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
     const [daysSelected, setDaysSelected] = useState([]);
     const [newHabit, setNewHabit] = useState(false);
     const [nomeHabito, setNomeHabito] = useState('');
     const [habitosLista, setHabitosLista] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const config = {
@@ -40,7 +42,7 @@ export default function Habitos() {
     }
 
     function criarHabito() {
-
+        setLoading(true)
         const habitoNovo = {
             name: nomeHabito,
             days: daysSelected
@@ -58,19 +60,24 @@ export default function Habitos() {
                 setNewHabit(false)
                 setDaysSelected('');
                 setNomeHabito('')
+                setLoading(false)
             })
-            .catch((err) => console.log(err.response.data))
+            .catch((err) => {
+                console.log(err.response.data)
+                setLoading(false)
+                alert(err.response.data.message)
+            })
     }
 
     function removeHabit(id) {
-
+        
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         }
         axios.delete(`${URLBase}habits/${id}`, config)
-        .then(() => setHabitosLista(habitosLista.filter((h) => h.id !== id)))
+            .then(() => setHabitosLista(habitosLista.filter((h) => h.id !== id)))
     }
 
     return (
@@ -85,10 +92,12 @@ export default function Habitos() {
                     {newHabit && (
                         <AddHabito>
                             <InfoHabito>
-                                <input onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
+                                <form>
+                                <input disabled={loading} onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
                                 {daysWeek.map((d, i) =>
-                                    <Botoes key={i} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
+                                    <Botoes key={i} disabled={loading} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)} required>{d}</Botoes>
                                 )}
+                                </form>
 
                             </InfoHabito>
                             <Acoes>
@@ -97,7 +106,19 @@ export default function Habitos() {
                                     setDaysSelected('');
                                     setNomeHabito('')
                                 }}>Cancelar</h1>
-                                <button type='submit' onClick={criarHabito}>Salvar</button>
+                                {loading ? <button type='submit'>
+                                    <div>
+                                        <ThreeDots
+                                            height="20"
+                                            width="70"
+                                            radius="9"
+                                            color="#ffffff"
+                                            ariaLabel="three-dots-loading"
+                                            wrapperStyle={{}}
+                                            wrapperClassName=""
+                                            visible={true}
+                                        /></div>
+                                </button> : <button type='submit' onClick={criarHabito}>Salvar</button>}
                             </Acoes>
                         </AddHabito>
                     )}
