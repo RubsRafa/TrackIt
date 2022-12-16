@@ -36,7 +36,7 @@ export default function Entrar({ setToken }) {
                 console.log(err.response.data)
                 setLoading(false)
                 setHabilitar(false)
-                alert(`${err.response.data}`)
+                alert(err.response.data.message)
             })
     }
 

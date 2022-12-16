@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import logo from '../img/logo.png'
 import URLBase from "./url";
+import { ThreeDots } from 'react-loader-spinner'
 
 export default function Cadastrar() {
 
@@ -11,6 +12,7 @@ export default function Cadastrar() {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [password, setPassword] = useState('');
+    const [habilitar, setHabilitar] = useState(false);
     const navigate = useNavigate();
 
     function entrar(e) {
@@ -32,8 +34,11 @@ export default function Cadastrar() {
                 setImage('')
                 setPassword('')
             })
-            .catch((err) => console.log(err.response.data))
-        console.log('entrar')
+            .catch((err) => {
+                console.log(err.response.data)
+                alert(err.response.data.message)
+                setHabilitar(false)
+            })
     }
 
     return (
@@ -44,11 +49,23 @@ export default function Cadastrar() {
                 </Logo>
                 <form onSubmit={entrar}>
                     <Inputs>
-                        <input onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
-                        <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
-                        <input onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
-                        <input onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
-                        <button type="submit">Cadastrar</button>
+                        <input disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
+                        <input disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
+                        <input disabled={habilitar} onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
+                        <input disabled={habilitar} onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
+                        {habilitar ? <button type="submit"><div>
+                            <ThreeDots
+                                height="40"
+                                width="70"
+                                radius="9"
+                                color="#ffffff"
+                                ariaLabel="three-dots-loading"
+                                wrapperStyle={{}}
+                                wrapperClassName=""
+                                visible={true}
+                            /></div>
+                        </button>
+                            : <button onClick={() => setHabilitar(true)} type="submit">Cadastrar</button>}
                     </Inputs>
                 </form>
                 <Link to={'/'}>
@@ -99,6 +116,9 @@ button {
     border-radius: 4px;
     padding: 8px;
     border: none;
+    div {
+        justify-content: center;
+    }
 }
 `;
 const Login = styled.div`
