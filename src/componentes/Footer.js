@@ -7,7 +7,8 @@ import Context from "./Context";
 
 export default function Footer() {
 
-    const { feitosHoje } = useContext(Context)
+    const { feitos, habitosHoje } = useContext(Context)
+    console.log(feitos)
 
     return (
         <>
@@ -20,7 +21,7 @@ export default function Footer() {
                     <Centralizar>
                         <CirculoHoje>
                             <CircularProgressbar
-                                value={feitosHoje}
+                                value={feitos && (feitos.length * 100) / habitosHoje.length}
                                 text={'Hoje'}
                                 background
                                 backgroundPadding={6}

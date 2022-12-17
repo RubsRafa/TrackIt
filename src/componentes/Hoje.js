@@ -9,18 +9,13 @@ import Context from './Context';
 
 
 export default function Hoje() {
-    const {token, setFeitosHoje} = useContext(Context)
+    const { token, feitos, setFeitos, habitosHoje, setHabitosHoje } = useContext(Context)
 
-    const [habitosHoje, setHabitosHoje] = useState();
     const [renderizar, setRenderizar] = useState(false);
-    const [porcentagem, setPorcentagem] = useState();
-    const [feitos, setFeitos] = useState([]);
     // console.log(habitosHoje)
     // console.log(feitos)
-    // console.log(porcentagem)
 
     useEffect(() => {
-        // console.log('ATUALIZAR TELA')
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -30,7 +25,6 @@ export default function Hoje() {
             .then((res) => {
                 setHabitosHoje(res.data)
                 setFeitos(res.data.filter((h) => h.done !== false))
-                calcularPorcentagem()
             })
             .catch((err) => console.log(err.response.data))
     }, [renderizar])
@@ -66,15 +60,6 @@ export default function Hoje() {
             .catch((err) => console.log(err.response.data))
     }
 
-    function calcularPorcentagem() {
-        // console.log('ATUALIZAR PORCENTAGEM')
-        if (habitosHoje !== undefined && feitos !== []) {
-            let resultado = (feitos.length * 100) / habitosHoje.length;
-            setPorcentagem(Math.round(resultado))
-            setFeitosHoje(Math.round(resultado))
-        }
-    }
-
     return (
         <Container>
             <NavBar />
@@ -82,8 +67,10 @@ export default function Hoje() {
                 <TextoPrincipal>
                     <div>.</div>
                     <h1>Segunda, 17/05</h1>
-                    {feitos.length === 0 && <h2>Nenhum hábito concluído ainda</h2>}
-                    {feitos.length !== 0 && <h2>{Math.round(porcentagem)}% dos hábitos concluídos</h2>}
+                    {feitos ?
+                        <h2 corletra={false}>{Math.round((feitos.length * 100) / habitosHoje.length)}% dos hábitos concluídos</h2> :
+                        <h2 corletra={true}>Nenhum hábito concluído ainda</h2>
+                    }
                 </TextoPrincipal>
                 <ListaHabitos>
                     {habitosHoje === undefined &&
@@ -134,7 +121,7 @@ h1 {
     margin: 20px 0 0 18px;
 }
 h2{
-    color: #BABABA;
+    color: ${props => props.corletra ? '#8FC549' : '#BABABA'};
     font-family: Lexend Deca, sans-serif;
     font-size: 18px;
     margin: 5px 0 0 18px;

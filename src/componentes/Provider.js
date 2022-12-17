@@ -4,7 +4,8 @@ import Context from "./Context";
 const Provider = ({ children }) => {
     const [image, setImage] = useState('');
     const [token, setToken] = useState('');
-    const [feitosHoje, setFeitosHoje] = useState();
+    const [feitos, setFeitos] = useState();
+    const [habitosHoje, setHabitosHoje] = useState();
     
     return (
         <Context.Provider value={{
@@ -12,8 +13,10 @@ const Provider = ({ children }) => {
             setImage,
             token,
             setToken,
-            feitosHoje,
-            setFeitosHoje
+            feitos,
+            setFeitos,
+            habitosHoje,
+            setHabitosHoje
         }}>
             {children}
         </Context.Provider>

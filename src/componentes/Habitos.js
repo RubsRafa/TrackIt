@@ -58,7 +58,7 @@ export default function Habitos() {
             .then((res) => {
                 // setHabitosLista([...habitosLista, res.data])
                 setNewHabit(false)
-                setDaysSelected('');
+                setDaysSelected('')
                 setNomeHabito('')
                 setLoading(false)
             })
@@ -70,7 +70,9 @@ export default function Habitos() {
     }
 
     function removeHabit(id) {
-        
+        if (!window.confirm('Confirmação: gostaria realmente de apagar o hábito?')) {
+            return; 
+        }
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -78,6 +80,7 @@ export default function Habitos() {
         }
         axios.delete(`${URLBase}habits/${id}`, config)
             .then(() => setHabitosLista(habitosLista.filter((h) => h.id !== id)))
+            .catch((err) => alert(err.response.data.message))
     }
 
     return (
@@ -92,21 +95,17 @@ export default function Habitos() {
                     {newHabit && (
                         <AddHabito>
                             <InfoHabito>
-                                <form>
                                 <input disabled={loading} onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
                                 {daysWeek.map((d, i) =>
-                                    <Botoes key={i} disabled={loading} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)} required>{d}</Botoes>
+                                    <Botoes key={i} disabled={loading} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
                                 )}
-                                </form>
 
                             </InfoHabito>
                             <Acoes>
                                 <h1 onClick={() => {
                                     setNewHabit(false)
-                                    setDaysSelected('');
-                                    setNomeHabito('')
                                 }}>Cancelar</h1>
-                                {loading ? <button type='submit'>
+                                {loading ? <button background={true} type='submit'>
                                     <div>
                                         <ThreeDots
                                             height="20"
@@ -118,7 +117,7 @@ export default function Habitos() {
                                             wrapperClassName=""
                                             visible={true}
                                         /></div>
-                                </button> : <button type='submit' onClick={criarHabito}>Salvar</button>}
+                                </button> : <button background={false} type='submit' onClick={criarHabito}>Salvar</button>}
                             </Acoes>
                         </AddHabito>
                     )}
@@ -243,7 +242,7 @@ button{
     box-sizing: border-box;
     height: 35px;
     border-radius: 5px;
-    background-color: #52B6FF;
+    background-color: ${props => props.background ? '#86CCFD' : '#52B6FF'};
     color: #FFFFFF;
     text-align: center;
     font-family: Lexend Deca, sans-serif;
