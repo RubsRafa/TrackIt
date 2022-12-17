@@ -1,20 +1,6 @@
-import Context from "./Context";
-import { useContext } from "react";
 import styled from "styled-components"
 
-export default function NavBar () {
-    const {image} = useContext(Context)
-    return (
-        <>
-        <NavBarLogo>
-            <h1>TrackIt</h1>
-            <img src={image} alt='perfil' />
-        </NavBarLogo>
-        </>
-    )
-}
-
-const NavBarLogo = styled.div`
+export const NavBarLogo = styled.div`
 width: 100%;
 background-color: #126BA5;
 height: 70px;

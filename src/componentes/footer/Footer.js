@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components"
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useContext } from "react";
-import Context from "./Context";
+import Context from "../contextAPI/Context";
+import { Rodape, Centralizar, CirculoHoje } from "./FooterCSS";
 
 export default function Footer() {
 
     const { feitos, habitosHoje } = useContext(Context)
-    console.log(feitos)
 
     return (
         <>
@@ -44,34 +43,3 @@ export default function Footer() {
         </>
     )
 }
-const Rodape = styled.div`
-width: 100%;
-height: 70px;
-display: flex;
-background-color: #FFFFFF;
-justify-content: space-around;
-position: fixed;
-bottom: 0;
-left: 0;
-h1{
-    padding: 25px;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 18px;
-    color: #52B6FF;
-}
-`;
-const CirculoHoje = styled.div`
-    width: 91px;
-    height: 91px;
-    border-radius: 50%;
-    background-color: #52B6FF;
-    text-align: center;
-    box-sizing: border-box;
-    position:absolute;
-    bottom: 10px;
-`;
-const Centralizar = styled.div`
-width: 91px;
-height: 91px;
-margin-left: 10px;
-`;

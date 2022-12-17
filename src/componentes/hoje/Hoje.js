@@ -1,19 +1,16 @@
 import feito from '../img/check.png'
-import styled from "styled-components"
-import Footer from "./Footer";
-import NavBar from "./NavBar";
+import Footer from "../footer/Footer";
+import NavBar from "../navbar/NavBar";
 import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
-import URLBase from './url';
-import Context from './Context';
+import URLBase from '../url';
+import Context from '../contextAPI/Context';
+import { ContainerHabitos, TextoPrincipal, ListaHabitos, InfoHabito, Habito, TextoHabito, Container, Check } from './HojeCSS';
 
 
 export default function Hoje() {
     const { token, feitos, setFeitos, habitosHoje, setHabitosHoje } = useContext(Context)
-
     const [renderizar, setRenderizar] = useState(false);
-    // console.log(habitosHoje)
-    // console.log(feitos)
 
     useEffect(() => {
         const config = {
@@ -95,96 +92,9 @@ export default function Hoje() {
                         )
                     )
                     }
-
-
                 </ListaHabitos>
             </ContainerHabitos>
             <Footer />
         </Container>
     )
 }
-const ContainerHabitos = styled.div`
-margin-top: 68px;
-height: 100%;
-margin-bottom: 70px;
-`;
-const TextoPrincipal = styled.div`
-margin-top: 50px;
-justify-content: space-between;
-div{
-    opacity: 0;
-}
-h1 {
-    color: #126BA5;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 23px;
-    margin: 20px 0 0 18px;
-}
-h2{
-    color: ${props => props.corletra ? '#8FC549' : '#BABABA'};
-    font-family: Lexend Deca, sans-serif;
-    font-size: 18px;
-    margin: 5px 0 0 18px;
-}
-`;
-const ListaHabitos = styled.div`
-margin: 22px 20px 70px 20px;
-h1{
-    font-family: Lexend Deca, sans-serif;
-    font-size: 18px;
-    color: #666666;
-}
-`;
-const InfoHabito = styled.div`
-margin: 20px 0 0 16px;
-display: flex;
-`;
-const Habito = styled.div`
-width: 340px;
-height: 91px;
-background-color: #ffffff;
-border-radius: 5px;
-h1 {
-    margin: 13px 0 0 15px;
-}
-`;
-const TextoHabito = styled.div`
-width: 220px;
-div{
-    opacity: 0;
-}
-h1 {
-    color: #666666;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 20px;
-    margin: 2px 0 0 0;
-}
-h2 {
-    color: #666666;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 13px;
-    margin: 5px 0 0 0;
-}
-span {
-    color: ${props => props.cor ? '#8FC549' : '#666666'};
-}
-`;
-const Container = styled.body`
-width: 100%;
-height: 100%;
-margin-bottom: 100px;
-/* background-color: #E5E5E5; */
-`;
-const Check = styled.div`
-width: 69px;
-height: 69px;
-background-color: ${props => props.corFundo ? '#8FC549' : '#EBEBEB'};
-border: 1px solid #e7e7e7;
-border-radius: 5px;
-margin: 10px 10px 0 20px;
-img {
-    width: 35px;
-    height: 28px;
-    margin: 20px 0 0 18px
-}
-`;

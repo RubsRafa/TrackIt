@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components"
-import logo from '../img/logo.png'
-import URLBase from "./url";
+import logo from '../../img/logo.png'
+import URLBase from "../url";
 import { ThreeDots } from 'react-loader-spinner'
-import Context from "./Context";
+import Context from "../contextAPI/Context";
+import { Container, Logo, Inputs, Cadastrar } from "./EntrarCSS";
 
 export default function Entrar() {
     const { setImage, setToken} = useContext(Context)
@@ -72,64 +72,3 @@ export default function Entrar() {
         </Container>
     )
 }
-
-const Container = styled.div`
-width: 100vw;
-height: 100vh;
-background-color: #FFFFFF;
-`;
-const Logo = styled.div`
-width: 100%;
-text-align: center;
-img {
-    width: 180px;
-    height: 178px;
-    margin-top: 70px;
-}
-`;
-const Inputs = styled.div`
-width: 303px;
-margin: 32px auto;
-text-align: center;
-input {
-    margin-top: 6px;
-    width: 303px;
-    height: 50px;
-    border: 1px solid #D4D4D4;
-    border-radius: 5px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 20px;
-    ::placeholder{
-        font-family: Lexend Deca, sans-serif;
-        font-size: 20px;
-        color: #DBDBDB;
-    }
-}
-button {
-    box-sizing: border-box;
-    margin-top: 6px;
-    width: 303px;
-    height: 50px;
-    background-color: #52B6FF;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 21px;
-    color: #FFFFFF;
-    border-radius: 4px;
-    padding: 8px;
-    border: none;
-    div{
-        justify-content: center;
-    }
-}
-`;
-const Cadastrar = styled.div`
-text-align: center;
-margin-top: 25px;
-h1{
-    color:#52B6FF;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 14px;
-    text-decoration: underline;
-}
-`;
