@@ -14,9 +14,8 @@ h1 {
     font-size: 23px;
     margin: 30px 0 0 18px;
 }
-div{
+button{
     box-sizing: border-box;
-    padding: 2px;
     text-align: center;
     width: 40px;
     height: 35px;
@@ -26,6 +25,7 @@ div{
     font-family: Lexend Deca, sans-serif;
     font-size: 27px;
     margin: 20px 18px 0 0;
+    border: none;
 }
 `;
 export const ListaHabitos = styled.div`
@@ -76,26 +76,6 @@ export const Botoes = styled.button`
 `;
 export const Acoes = styled.div`
 display: flex;
-h1{
-    margin: 40px 0 0 152px;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 16px;
-    color: #52B6FF;
-}
-button{
-    border: none;
-    margin: 29px 0 0 23px;
-    width: 84px;
-    padding: 8px;
-    box-sizing: border-box;
-    height: 35px;
-    border-radius: 5px;
-    background-color: ${props => props.background ? '#86CCFD' : '#52B6FF'};
-    color: #FFFFFF;
-    text-align: center;
-    font-family: Lexend Deca, sans-serif;
-    font-size: 16px;
-}
 `;
 export const Habito = styled.div`
 width: 340px;
@@ -125,4 +105,26 @@ export const Container = styled.body`
 width: 100vw;
 height: 100%;
 margin-bottom: 70px;
+`;
+export const Cancelar = styled.button`
+    margin: 30px 0 0 152px;
+    font-family: Lexend Deca, sans-serif;
+    font-size: 16px;
+    color: #52B6FF;
+    border: none;
+    background-color: #ffffff;
+`;
+export const Salvar = styled.button`
+    border: none;
+    margin: 29px 10px 0 5px;
+    width: 84px;
+    padding: 8px;
+    box-sizing: border-box;
+    height: 35px;
+    border-radius: 5px;
+    background-color: ${props => props.background ? '#86CCFD' : '#52B6FF'};
+    color: #FFFFFF;
+    text-align: center;
+    font-family: Lexend Deca, sans-serif;
+    font-size: 16px;
 `;

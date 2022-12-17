@@ -50,10 +50,10 @@ export default function Cadastrar() {
                 </Logo>
                 <form onSubmit={entrar}>
                     <Inputs>
-                        <input disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
-                        <input disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
-                        <input disabled={habilitar} onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
-                        <input disabled={habilitar} onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
+                        <input data-test="email-input" disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
+                        <input data-test="password-input" disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
+                        <input data-test="user-name-input" disabled={habilitar} onChange={(e) => setName(e.target.value)} value={name} type='text' placeholder='nome' required></input>
+                        <input data-test="user-image-input" disabled={habilitar} onChange={(e) => setImage(e.target.value)} value={image} type='url' placeholder='foto' required></input>
                         {habilitar ? <button type="submit"><div>
                             <ThreeDots
                                 height="40"
@@ -66,10 +66,10 @@ export default function Cadastrar() {
                                 visible={true}
                             /></div>
                         </button>
-                            : <button onClick={() => setHabilitar(true)} type="submit">Cadastrar</button>}
+                            : <button data-test="signup-btn" onClick={() => setHabilitar(true)} type="submit">Cadastrar</button>}
                     </Inputs>
                 </form>
-                <Link to={'/'}>
+                <Link data-test="login-link" to={'/'}>
                     <Login><h1>Já tem uma conta? Faça login!</h1></Login>
                 </Link>
             </TelaCadastrar>

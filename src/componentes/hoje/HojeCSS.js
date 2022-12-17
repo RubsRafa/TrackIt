@@ -77,7 +77,7 @@ width: 100%;
 height: 100%;
 margin-bottom: 100px;
 `;
-export const Check = styled.div`
+export const Check = styled.button`
 width: 69px;
 height: 69px;
 background-color: ${props => props.corFundo ? '#8FC549' : '#EBEBEB'};
@@ -87,6 +87,5 @@ margin: 10px 10px 0 20px;
 img {
     width: 35px;
     height: 28px;
-    margin: 20px 0 0 18px
 }
 `;

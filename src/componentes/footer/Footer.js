@@ -11,11 +11,11 @@ export default function Footer() {
 
     return (
         <>
-            <Rodape>
-                <Link to={'/habitos'}>
+            <Rodape data-test="menu">
+                <Link data-test="habit-link" to={'/habitos'}>
                     <h1>Hábitos</h1>
                 </Link>
-                <Link to={'/hoje'}>
+                <Link data-test="today" to={'/hoje'}>
 
                     <Centralizar>
                         <CirculoHoje>
@@ -36,7 +36,7 @@ export default function Footer() {
                         </CirculoHoje>
                     </Centralizar>
                 </Link>
-                <Link to={'/historico'}>
+                <Link data-test="history-link" to={'/historico'}>
                     <h1>Histórico</h1>
                 </Link>
             </Rodape>

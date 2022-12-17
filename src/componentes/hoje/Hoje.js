@@ -17,7 +17,6 @@ export default function Hoje() {
     let weekday = dayjs().$W;
     let month = dayjs().$M; 
 
-
     useEffect(() => {
         const config = {
             headers: {
@@ -69,7 +68,7 @@ export default function Hoje() {
             <ContainerHabitos>
                 <TextoPrincipal>
                     <div>.</div>
-                    <h1>
+                    <h1 data-test="today">
                        {weekday === 1 && 'Segunda'}
                        {weekday === 2 && 'Terça'}
                        {weekday === 3 && 'Quarta'} 
@@ -78,9 +77,9 @@ export default function Hoje() {
                        {weekday === 6 && 'Sábado'}
                        {weekday === 7 && 'Domingo'}, {day}/{month + 1}
                     </h1>
-                    {((feitos.length * 100) / habitosHoje.length) ?
-                        <h2>{Math.round((feitos.length * 100) / habitosHoje.length)}% dos hábitos concluídos</h2> :
-                        <h3>Nenhum hábito concluído ainda</h3>
+                    {feitos ?
+                        <h2 data-test="today-counter">{Math.round((feitos.length * 100) / habitosHoje.length)}% dos hábitos concluídos</h2> :
+                        <h3 data-test="today-counter">Nenhum hábito concluído ainda</h3>
                     }
                 </TextoPrincipal>
                 <ListaHabitos>
@@ -90,15 +89,15 @@ export default function Hoje() {
                     {habitosHoje !== undefined && (
 
                         habitosHoje.map((h) =>
-                            <Habito key={h.id}>
+                            <Habito key={h.id} data-test="today-habit-container">
                                 <InfoHabito>
                                     <TextoHabito cor={h.currentSequence === h.highestSequence}>
                                         <div>.</div>
-                                        <h1>{h.name}</h1>
-                                        <h2>Sequência atual: <span>{h.currentSequence} dias</span></h2>
-                                        <h2>Seu recorde: <span>{h.highestSequence} dias</span></h2>
+                                        <h1 data-test="today-habit-name">{h.name}</h1>
+                                        <h2 data-test="today-habit-sequence">Sequência atual: <span>{h.currentSequence} dias</span></h2>
+                                        <h2 data-test="today-habit-record">Seu recorde: <span>{h.highestSequence} dias</span></h2>
                                     </TextoHabito>
-                                    <Check corFundo={h.done} onClick={h.done ? (() => desmarcarHabito(h.id)) : (() => marcarFeito(h.id))}>
+                                    <Check data-test="today-habit-check-btn" corFundo={h.done} onClick={h.done ? (() => desmarcarHabito(h.id)) : (() => marcarFeito(h.id))}>
                                         <img src={feito} alt='check' />
                                     </Check>
                                 </InfoHabito>

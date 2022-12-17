@@ -6,7 +6,7 @@ export default function NavBar () {
     const {image} = useContext(Context)
     return (
         <>
-        <NavBarLogo>
+        <NavBarLogo data-test="header">
             <h1>TrackIt</h1>
             <img src={image} alt='perfil' />
         </NavBarLogo>

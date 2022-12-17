@@ -46,8 +46,8 @@ export default function Entrar() {
             </Logo>
             <form onSubmit={entrar}>
                 <Inputs>
-                    <input disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
-                    <input disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
+                    <input data-test="email-input" disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
+                    <input data-test="password-input" disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
                     {loading ? <button type="submit"><div>
                         <ThreeDots
                             height="40"
@@ -59,14 +59,14 @@ export default function Entrar() {
                             wrapperClassName=""
                             visible={true}
                         /></div>
-                    </button> : <button onClick={() => {
+                    </button> : <button data-test="login-btn" onClick={() => {
                         setLoading(true)
                         setHabilitar(true)
                     }} type="submit"><div>Entrar</div></button>}
 
                 </Inputs>
             </form>
-            <Link to={'/cadastro'}>
+            <Link data-test="signup-link" to={'/cadastro'}>
                 <Cadastrar><h1>Não tem uma conta? Cadastre-se!</h1></Cadastrar>
             </Link>
         </Container>

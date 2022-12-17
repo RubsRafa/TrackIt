@@ -4,7 +4,7 @@ import Context from "./Context";
 const Provider = ({ children }) => {
     const [image, setImage] = useState('');
     const [token, setToken] = useState('');
-    const [feitos, setFeitos] = useState();
+    const [feitos, setFeitos] = useState(undefined);
     const [habitosHoje, setHabitosHoje] = useState();
     
     return (

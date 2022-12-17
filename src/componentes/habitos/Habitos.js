@@ -6,7 +6,7 @@ import NavBar from "../navbar/NavBar";
 import URLBase from "../url";
 import Context from "../contextAPI/Context";
 import { ThreeDots } from 'react-loader-spinner'
-import { ContainerHabitos, TextoPrincipal, ListaHabitos, AddHabito, InfoHabito, Botoes, Acoes, Habito, TextoHabito, Container } from "./HabitosCSS";
+import { ContainerHabitos, TextoPrincipal, ListaHabitos, AddHabito, InfoHabito, Botoes, Acoes, Habito, TextoHabito, Container, Cancelar, Salvar } from "./HabitosCSS";
 
 export default function Habitos() {
     const { token } = useContext(Context)
@@ -89,23 +89,23 @@ export default function Habitos() {
             <ContainerHabitos>
                 <TextoPrincipal>
                     <h1>Meus hábitos</h1>
-                    <div onClick={() => setNewHabit(true)}>+</div>
+                    <button data-test="habit-create-btn" onClick={() => setNewHabit(true)}>+</button>
                 </TextoPrincipal>
                 <ListaHabitos>
                     {newHabit && (
-                        <AddHabito>
+                        <AddHabito data-test="habit-create-container">
                             <InfoHabito>
-                                <input disabled={loading} onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
+                                <input data-test="habit-name-input" disabled={loading} onChange={(e) => setNomeHabito(e.target.value)} value={nomeHabito} type='text' placeholder="nome do hábito" required></input>
                                 {daysWeek.map((d, i) =>
-                                    <Botoes key={i} disabled={loading} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
+                                    <Botoes data-test="habit-day" key={i} disabled={loading} cor={daysSelected.includes(i)} onClick={() => selectDaysWeek(i)}>{d}</Botoes>
                                 )}
 
                             </InfoHabito>
                             <Acoes>
-                                <h1 onClick={() => {
+                                <Cancelar data-test="habit-create-cancel-btn" onClick={() => {
                                     setNewHabit(false)
-                                }}>Cancelar</h1>
-                                {loading ? <button background={true} type='submit'>
+                                }}>Cancelar</Cancelar>
+                                {loading ? <Salvar background={true} type='submit'>
                                     <div>
                                         <ThreeDots
                                             height="20"
@@ -117,26 +117,26 @@ export default function Habitos() {
                                             wrapperClassName=""
                                             visible={true}
                                         /></div>
-                                </button> : <button background={false} type='submit' onClick={criarHabito}>Salvar</button>}
+                                </Salvar> : <Salvar data-test="habit-create-save-btn" background={false} type='submit' onClick={criarHabito}>Salvar</Salvar>}
                             </Acoes>
                         </AddHabito>
                     )}
                     {habitosLista.length !== 0 && (
 
                         habitosLista.map((h) => (
-                            <Habito key={h.id}>
+                            <Habito key={h.id} data-test="habit-container">
                                 <InfoHabito>
                                     <TextoHabito>
-                                        <h1>{h.name}</h1>
-                                        <img onClick={() => removeHabit(h.id)} src={Trash} alt='trash' />
+                                        <h1 data-test="habit-name">{h.name}</h1>
+                                        <img data-test="habit-delete-btn" onClick={() => removeHabit(h.id)} src={Trash} alt='trash' />
                                     </TextoHabito>
-                                    <Botoes cor={h.days.includes(0)}>D</Botoes>
-                                    <Botoes cor={h.days.includes(1)}>S</Botoes>
-                                    <Botoes cor={h.days.includes(2)}>T</Botoes>
-                                    <Botoes cor={h.days.includes(3)}>Q</Botoes>
-                                    <Botoes cor={h.days.includes(4)}>Q</Botoes>
-                                    <Botoes cor={h.days.includes(5)}>S</Botoes>
-                                    <Botoes cor={h.days.includes(6)}>S</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(0)}>D</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(1)}>S</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(2)}>T</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(3)}>Q</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(4)}>Q</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(5)}>S</Botoes>
+                                    <Botoes data-test="habit-day" cor={h.days.includes(6)}>S</Botoes>
                                 </InfoHabito>
                             </Habito>
                         ))
