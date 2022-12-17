@@ -18,7 +18,13 @@ h1 {
     margin: 20px 0 0 18px;
 }
 h2{
-    color: ${props => props.corletra ? '#8FC549' : '#BABABA'};
+    color: #8FC549;
+    font-family: Lexend Deca, sans-serif;
+    font-size: 18px;
+    margin: 5px 0 0 18px;
+}
+h3 {
+    color: #BABABA;
     font-family: Lexend Deca, sans-serif;
     font-size: 18px;
     margin: 5px 0 0 18px;
