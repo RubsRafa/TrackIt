@@ -170,9 +170,10 @@ span {
 }
 `;
 const Container = styled.body`
-width: 100vw;
-height: 100vh;
-background-color: #E5E5E5;
+width: 100%;
+height: 100%;
+margin-bottom: 100px;
+/* background-color: #E5E5E5; */
 `;
 const Check = styled.div`
 width: 69px;

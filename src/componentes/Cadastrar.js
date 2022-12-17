@@ -42,7 +42,7 @@ export default function Cadastrar() {
     }
 
     return (
-        <>
+        <Container>
             <TelaCadastrar>
                 <Logo>
                     <img src={logo} alt="logo" />
@@ -72,15 +72,19 @@ export default function Cadastrar() {
                     <Login><h1>Já tem uma conta? Faça login!</h1></Login>
                 </Link>
             </TelaCadastrar>
-        </>
+        </Container>
     )
 }
-
+const Container = styled.div`
+width: 100vw;
+height: 100%;
+background-color: #FFFFFF;
+`;
 const Logo = styled.div`
 width: 100%;
 text-align: center;
-margin-top: 68px;
 img {
+    margin-top: 68px;
     width: 180px;
     height: 178px;
 }

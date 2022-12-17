@@ -275,7 +275,6 @@ img {
 `;
 const Container = styled.body`
 width: 100vw;
-height: 100vh;
-background-color: #E5E5E5;
+height: 100%;
 margin-bottom: 70px;
 `;

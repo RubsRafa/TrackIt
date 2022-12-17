@@ -40,7 +40,7 @@ export default function Entrar() {
     }
 
     return (
-        <>
+        <Container>
             <Logo>
                 <img src={logo} alt="logo" />
             </Logo>
@@ -69,17 +69,22 @@ export default function Entrar() {
             <Link to={'/cadastro'}>
                 <Cadastrar><h1>Não tem uma conta? Cadastre-se!</h1></Cadastrar>
             </Link>
-        </>
+        </Container>
     )
 }
 
+const Container = styled.div`
+width: 100vw;
+height: 100vh;
+background-color: #FFFFFF;
+`;
 const Logo = styled.div`
 width: 100%;
 text-align: center;
-margin-top: 68px;
 img {
     width: 180px;
     height: 178px;
+    margin-top: 70px;
 }
 `;
 const Inputs = styled.div`
