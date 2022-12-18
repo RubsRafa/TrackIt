@@ -29,7 +29,7 @@ button{
 }
 `;
 export const ListaHabitos = styled.div`
-margin: 22px 20px 70px 20px;
+margin: 22px 20px 110px 20px;
 h1{
     font-family: Lexend Deca, sans-serif;
     font-size: 18px;

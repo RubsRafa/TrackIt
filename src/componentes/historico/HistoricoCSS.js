@@ -26,13 +26,24 @@ h2{
 `;
 export const ListaHabitos = styled.div`
 margin: 22px 20px 70px 20px;
-h1{
+div{
     font-family: Lexend Deca, sans-serif;
-    font-size: 18px;
+    font-size: 12px;
     color: #666666;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 3px;
 }
 `;
 export const Container = styled.body`
 width: 100vw;
 height: 100vh;
+`;
+export const Bolinha = styled.div`
+width: 30px;
+height: 30px;
+border-radius: 50%;
+opacity: 50%;
+background-color: hotpink;
 `;
