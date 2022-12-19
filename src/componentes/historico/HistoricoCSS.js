@@ -34,6 +34,11 @@ div{
     border: none;
     border-radius: 10px;
     padding: 3px;
+    button {
+        background-color: ${props => props.feito};
+        border-radius: 50%;
+        border-radius: 1px solid black;
+    }
 }
 `;
 export const Container = styled.body`
@@ -46,4 +51,14 @@ height: 30px;
 border-radius: 50%;
 opacity: 50%;
 background-color: hotpink;
+margin: 1px 8px 0 8px;
+`;
+export const ContainerBolinha = styled.div`
+width: 80%;
+height: 26%;
+background-color: black;
+opacity: 30%;
+margin: -270px auto;
+display: flex;
+flex-wrap: wrap;
 `;

@@ -38,7 +38,7 @@ button {
     margin-top: 6px;
     width: 303px;
     height: 50px;
-    background-color: #52B6FF;
+    background-color: ${props => props.cor ? '#86CCFD' : '#52B6FF'};
     font-family: Lexend Deca, sans-serif;
     font-size: 21px;
     color: #FFFFFF;

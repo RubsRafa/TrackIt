@@ -45,7 +45,7 @@ export default function Entrar() {
                 <img src={logo} alt="logo" />
             </Logo>
             <form onSubmit={entrar}>
-                <Inputs>
+                <Inputs cor={habilitar}>
                     <input data-test="email-input" disabled={habilitar} onChange={(e) => setEmail(e.target.value)} value={email} type='email' placeholder='email' required></input>
                     <input data-test="password-input" disabled={habilitar} onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='senha' required></input>
                     {loading ? <button type="submit"><div>
