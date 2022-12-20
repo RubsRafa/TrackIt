@@ -38,6 +38,7 @@ div{
         background-color: ${props => props.feito};
         border-radius: 50%;
         border-radius: 1px solid black;
+        color: ${props => props.feito};
     }
 }
 `;
