@@ -59,7 +59,7 @@ export default function Entrar() {
                             wrapperClassName=""
                             visible={true}
                         /></div>
-                    </button> : <button data-test="login-btn" onClick={() => {
+                    </button> : <button disabled={habilitar} data-test="login-btn" onClick={() => {
                         setLoading(true)
                         setHabilitar(true)
                     }} type="submit"><div>Entrar</div></button>}

@@ -74,7 +74,8 @@ export default function Historico() {
                 <TextoPrincipal>
                     <div>.</div>
                     <h1>Histórico</h1>
-                    {!mostrarHistorico && <h2>Em breve você poderá ver o histórico dos seus hábitos aqui!</h2>}
+                    <h2>Em breve você poderá ver o histórico dos seus hábitos aqui!</h2>
+                    {/* {!mostrarHistorico && <h2>Em breve você poderá ver o histórico dos seus hábitos aqui!</h2>} */}
                 </TextoPrincipal>
                 {/* <ListaHabitos feito={cor}>
                     {mostrarHistorico &&

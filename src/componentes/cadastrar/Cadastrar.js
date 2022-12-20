@@ -66,7 +66,7 @@ export default function Cadastrar() {
                                 visible={true}
                             /></div>
                         </button>
-                            : <button data-test="signup-btn" onClick={() => setHabilitar(true)} type="submit">Cadastrar</button>}
+                            : <button disabled={habilitar} data-test="signup-btn" onClick={() => setHabilitar(true)} type="submit">Cadastrar</button>}
                     </Inputs>
                 </form>
                 <Link data-test="login-link" to={'/'}>

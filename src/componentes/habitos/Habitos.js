@@ -102,7 +102,7 @@ export default function Habitos() {
 
                             </InfoHabito>
                             <Acoes>
-                                <Cancelar data-test="habit-create-cancel-btn" onClick={() => {
+                                <Cancelar disabled={loading} data-test="habit-create-cancel-btn" onClick={() => {
                                     setNewHabit(false)
                                 }}>Cancelar</Cancelar>
                                 {loading ? <Salvar background={true} type='submit'>
@@ -117,7 +117,7 @@ export default function Habitos() {
                                             wrapperClassName=""
                                             visible={true}
                                         /></div>
-                                </Salvar> : <Salvar data-test="habit-create-save-btn" background={false} type='submit' onClick={criarHabito}>Salvar</Salvar>}
+                                </Salvar> : <Salvar disabled={loading} data-test="habit-create-save-btn" background={false} type='submit' onClick={criarHabito}>Salvar</Salvar>}
                             </Acoes>
                         </AddHabito>
                     )}
